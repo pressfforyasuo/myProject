@@ -38,9 +38,9 @@
                                 <rect key="frame" x="74" y="380" width="267" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Cearcle"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Circle"/>
                                 <connections>
-                                    <action selector="cearcleTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ewx-Gv-gdd"/>
+                                    <action selector="circleTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ny8-d4-dZB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -50,7 +50,7 @@
                     <connections>
                         <outlet property="Rectangle" destination="EpK-Z8-O0a" id="hIx-2d-Ftx"/>
                         <outlet property="catGame" destination="9M8-W2-Ak7" id="KKK-mG-Iga"/>
-                        <outlet property="cearcle" destination="8Lx-d8-7ny" id="YCE-xM-DpA"/>
+                        <outlet property="circle" destination="8Lx-d8-7ny" id="cSg-1r-VFG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

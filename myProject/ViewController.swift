@@ -11,11 +11,16 @@ class ViewController: UIViewController {
 
     let myButton = UIButton()
     let myView = UIView()
-    let MyCearcle = UIView()
+    let MyCircle = UIView()
+    
+    let buttonUp = UIButton()
+    let buttonRight = UIButton()
+    let buttonLeft = UIButton()
+    let buttonDown = UIButton()
     
     @IBOutlet weak var catGame: UIButton!
     @IBOutlet weak var Rectangle: UIButton!
-    @IBOutlet weak var cearcle: UIButton!
+    @IBOutlet weak var circle: UIButton!
     
     
     override func viewDidLoad() {
@@ -23,15 +28,65 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func cearcleTouch(_ sender: Any) {
+    @IBAction func circleTouch(_ sender: Any) {
         Rectangle.isHidden = true
         catGame.isHidden = true
-        cearcle.isHidden = true
+        circle.isHidden = true
         
-        MyCearcle.frame = CGRect(x: 120, y: 322, width: 150, height: 150)
-        MyCearcle.backgroundColor = .magenta
-        MyCearcle.layer.cornerRadius = MyCearcle.frame.width/2
-        self.view.addSubview(MyCearcle)
+        MyCircle.frame = CGRect(x: 120, y: 322, width: 150, height: 150)
+        MyCircle.backgroundColor = .magenta
+        MyCircle.layer.cornerRadius = MyCircle.frame.width/2
+        self.view.addSubview(MyCircle)
+        
+        buttonUp.frame = CGRect(x: 175, y: 644, width: 30, height: 30)
+        buttonUp.backgroundColor = .blue
+        buttonUp.layer.cornerRadius = buttonUp.frame.width/2
+        
+        buttonDown.frame = CGRect(x: 175, y: 744, width: 30, height: 30)
+        buttonDown.backgroundColor = .blue
+        buttonDown.layer.cornerRadius = buttonUp.frame.width/2
+        
+        buttonLeft.frame = CGRect(x: 100, y: 690, width: 30, height: 30)
+        buttonLeft.backgroundColor = .blue
+        buttonLeft.layer.cornerRadius = buttonLeft.frame.width/2
+        
+        buttonRight.frame = CGRect(x: 250, y: 690, width: 30, height: 30)
+        buttonRight.backgroundColor = .blue
+        buttonRight.layer.cornerRadius = buttonRight.frame.width/2
+        
+        buttonUp.addTarget(self, action: #selector(buttonUpAction), for: .touchUpInside)
+        buttonDown.addTarget(self, action: #selector(buttonDownAction), for: .touchUpInside)
+        buttonLeft.addTarget(self, action: #selector(buttonLeftAction), for: .touchUpInside)
+        buttonRight.addTarget(self, action: #selector(buttonRightAction), for: .touchUpInside)
+        
+        self.view.addSubview(buttonRight)
+        self.view.addSubview(buttonLeft)
+        self.view.addSubview(buttonDown)
+        self.view.addSubview(buttonUp)
+    }
+    
+    @objc func buttonUpAction(sender: UIButton!) {
+        if MyCircle.frame.origin.y != 0 && MyCircle.frame.origin.y - 30 > 0 {
+            MyCircle.frame.origin.y -= 30
+        }
+    }
+    
+    @objc func buttonDownAction(sender: UIButton!) {
+        if MyCircle.frame.origin.y + 150 != 844 && MyCircle.frame.origin.y + 30 + 150 < 822 {
+            MyCircle.frame.origin.y += 30
+        }
+    }
+    
+    @objc func buttonLeftAction(sender: UIButton!) {
+        if MyCircle.frame.origin.x != 0 && MyCircle.frame.origin.x - 30 > 0 {
+            MyCircle.frame.origin.x -= 30
+        }
+    }
+    
+    @objc func buttonRightAction(sender: UIButton!) {
+        if MyCircle.frame.origin.x + 150 != 322 && MyCircle.frame.origin.x + 30 + 150 < 384 {
+            MyCircle.frame.origin.x += 30
+        }
     }
     
     func createRectangle(count: Int) -> [UIView] {
@@ -56,7 +111,7 @@ class ViewController: UIViewController {
     @IBAction func rectangleButton(_ sender: Any) {
         Rectangle.isHidden = true
         catGame.isHidden = true
-        cearcle.isHidden = true
+        circle.isHidden = true
         
         let myCG = createRectangle(count: 10)
         
@@ -69,7 +124,7 @@ class ViewController: UIViewController {
         
         Rectangle.isHidden = true
         catGame.isHidden = true
-        cearcle.isHidden = true
+        circle.isHidden = true
 
         
         var x = Int.random(in: 0...300)
