@@ -7,162 +7,215 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+enum Direction {
+    case left
+    case right
+    case up
+    case down
+}
 
-    let myButton = UIButton()
-    let myView = UIView()
-    let MyCircle = UIView()
-    
-    let buttonUp = UIButton()
-    let buttonRight = UIButton()
-    let buttonLeft = UIButton()
-    let buttonDown = UIButton()
-    
+enum Figure {
+    case rectangle
+    case circle
+}
+
+class ViewController: UIViewController {
+    //MARK: - IBOutlets
     @IBOutlet weak var catGame: UIButton!
     @IBOutlet weak var Rectangle: UIButton!
     @IBOutlet weak var circle: UIButton!
     
+    //MARK: - let/var
+    private let moveUp = UIButton()
+    private let moveDown = UIButton()
+    private let moveLeft = UIButton()
+    private let moveRight = UIButton()
     
+    private let myButton = UIButton()
+    private let myView = UIView()
+    private let MyCircle = UIView()
+    
+    private let side: CGFloat = 80
+    
+    private var x: CGFloat = 0
+    private var y: CGFloat = 0
+    
+    
+    
+    //MARK: - lifecycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-    
-    @IBAction func circleTouch(_ sender: Any) {
-        Rectangle.isHidden = true
-        catGame.isHidden = true
-        circle.isHidden = true
-        
-        MyCircle.frame = CGRect(x: 120, y: 322, width: 150, height: 150)
-        MyCircle.backgroundColor = .magenta
-        MyCircle.layer.cornerRadius = MyCircle.frame.width/2
-        self.view.addSubview(MyCircle)
-        
-        buttonUp.frame = CGRect(x: 175, y: 644, width: 30, height: 30)
-        buttonUp.backgroundColor = .blue
-        buttonUp.layer.cornerRadius = buttonUp.frame.width/2
-        
-        buttonDown.frame = CGRect(x: 175, y: 744, width: 30, height: 30)
-        buttonDown.backgroundColor = .blue
-        buttonDown.layer.cornerRadius = buttonUp.frame.width/2
-        
-        buttonLeft.frame = CGRect(x: 100, y: 690, width: 30, height: 30)
-        buttonLeft.backgroundColor = .blue
-        buttonLeft.layer.cornerRadius = buttonLeft.frame.width/2
-        
-        buttonRight.frame = CGRect(x: 250, y: 690, width: 30, height: 30)
-        buttonRight.backgroundColor = .blue
-        buttonRight.layer.cornerRadius = buttonRight.frame.width/2
-        
-        buttonUp.addTarget(self, action: #selector(buttonUpAction), for: .touchUpInside)
-        buttonDown.addTarget(self, action: #selector(buttonDownAction), for: .touchUpInside)
-        buttonLeft.addTarget(self, action: #selector(buttonLeftAction), for: .touchUpInside)
-        buttonRight.addTarget(self, action: #selector(buttonRightAction), for: .touchUpInside)
-        
-        self.view.addSubview(buttonRight)
-        self.view.addSubview(buttonLeft)
-        self.view.addSubview(buttonDown)
-        self.view.addSubview(buttonUp)
-    }
-    
-    @objc func buttonUpAction(sender: UIButton!) {
-        if MyCircle.frame.origin.y != 0 && MyCircle.frame.origin.y - 30 > 0 {
-            MyCircle.frame.origin.y -= 30
-        }
-    }
-    
-    @objc func buttonDownAction(sender: UIButton!) {
-        if MyCircle.frame.origin.y + 150 != 844 && MyCircle.frame.origin.y + 30 + 150 < 822 {
-            MyCircle.frame.origin.y += 30
-        }
-    }
-    
-    @objc func buttonLeftAction(sender: UIButton!) {
-        if MyCircle.frame.origin.x != 0 && MyCircle.frame.origin.x - 30 > 0 {
-            MyCircle.frame.origin.x -= 30
-        }
-    }
-    
-    @objc func buttonRightAction(sender: UIButton!) {
-        if MyCircle.frame.origin.x + 150 != 322 && MyCircle.frame.origin.x + 30 + 150 < 384 {
-            MyCircle.frame.origin.x += 30
-        }
-    }
-    
-    func createRectangle(count: Int) -> [UIView] {
-        var view12 = [UIView]()
-        var x = 20
-        var y = 0
-        for i in 0..<count {
-            if i % 2 == 0 && i != 0{
-                y += 170
-                x = 20
-                
-            } else if i % 2 != 0 {
-                x = 190
-            }
-            view12.append(UIView())
-            view12[i].frame = CGRect(x: x, y: y, width: 150, height: 150)
-            view12[i].backgroundColor = .magenta
-        }
-        return view12
-    }
-    
+    //MARK: - IBActions
     @IBAction func rectangleButton(_ sender: Any) {
-        Rectangle.isHidden = true
         catGame.isHidden = true
         circle.isHidden = true
+        Rectangle.isHidden = true
         
-        let myCG = createRectangle(count: 10)
-        
-        for i in 0..<myCG.count {
-            self.view.addSubview(myCG[i])
-        }
+        createView(figure: .rectangle)
     }
     
     @IBAction func catGameButton(_ sender: Any) {
-        
-        Rectangle.isHidden = true
         catGame.isHidden = true
         circle.isHidden = true
-
+        Rectangle.isHidden = true
         
-        var x = Int.random(in: 0...300)
-        var y = Int.random(in: 0...750)
+        createCircleButton()
+    }
+    
+    @IBAction func circleTouch(_ sender: Any) {
+        catGame.isHidden = true
+        circle.isHidden = true
+        Rectangle.isHidden = true
         
-        let height = 100
-        let width = 100
+        createView(figure: .circle)
         
-        while x + width > 300 {
-            x = Int.random(in: 0...300)
-        }
-        while y + height > 750 {
-            y = Int.random(in: 0...750)
-        }
-        
-        myButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        myButton.backgroundColor = .magenta
-        myButton.layer.cornerRadius = myButton.frame.width/2
-        myButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        self.view.addSubview(myButton)
+        createMoveButton()
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        var x = Int.random(in: 0...300)
-        var y = Int.random(in: 0...750)
-        
-        let height = 100
-        let width = 100
-        
-        while x + width > 300 {
-            x = Int.random(in: 0...300)
+        createCircleButton()
+    }
+    
+    @objc func up(sender: UIButton!) {
+        move(direction: .up)
+    }
+    
+    @objc func down(sender: UIButton!) {
+        move(direction: .down)
+    }
+    
+    @objc func left(sender: UIButton!) {
+        move(direction: .left)
+    }
+    
+    @objc func right(sender: UIButton!) {
+        move(direction: .right)
+    }
+    //MARK: - flow funcs
+    private func move(direction: Direction) {
+        switch direction {
+        case .left:
+            if self.MyCircle.frame.origin.x - self.side > 0 {
+                self.MyCircle.frame.origin.x -= self.side
+            }
+        case .right:
+            if self.MyCircle.frame.origin.x + self.side * 2 < self.view.frame.size.width {
+                self.MyCircle.frame.origin.x += self.side
+            }
+        case .up:
+            if self.MyCircle.frame.origin.y - self.side > 0 {
+                self.MyCircle.frame.origin.y -= self.side
+            }
+        case .down:
+            if self.MyCircle.frame.origin.y + self.side * 2 < self.view.frame.size.height {
+                self.MyCircle.frame.origin.y += self.side
+            }
         }
-        while y + height > 750 {
-            y = Int.random(in: 0...750)
+    }
+    private func createMoveButton() {
+        let x = self.view.frame.size.width/2
+        let y = self.view.frame.size.height/2
+        let side: CGFloat = 40
+        moveUp.frame = CGRect(x: x - side / 2, y: y - side / 2 - 100, width: side, height: side)
+        moveDown.frame = CGRect(x: x - side / 2, y: y - side / 2 , width: side, height: side)
+        moveLeft.frame = CGRect(x: x - side / 2 - 80, y: y - side / 2 - 55, width: side, height: side)
+        moveRight.frame = CGRect(x: x - side / 2 + 80, y: y - side / 2 - 55, width: side, height: side)
+        moveUp.layer.cornerRadius = moveUp.frame.width/2
+        moveDown.layer.cornerRadius = moveDown.frame.width/2
+        moveLeft.layer.cornerRadius = moveLeft.frame.width/2
+        moveRight.layer.cornerRadius = moveRight.frame.width/2
+        moveUp.backgroundColor = .red
+        moveDown.backgroundColor = .blue
+        moveLeft.backgroundColor = .green
+        moveRight.backgroundColor = .yellow
+        moveUp.setTitle("\u{2191}", for: .normal)
+        moveDown.setTitle("\u{2193}", for: .normal)
+        moveLeft.setTitle("\u{2190}", for: .normal)
+        moveRight.setTitle("\u{2192}", for: .normal)
+        moveUp.addTarget(self, action: #selector(up), for: .touchUpInside)
+        moveDown.addTarget(self, action: #selector(down), for: .touchUpInside)
+        moveLeft.addTarget(self, action: #selector(left), for: .touchUpInside)
+        moveRight.addTarget(self, action: #selector(right), for: .touchUpInside)
+        self.view.addSubview(moveUp)
+        self.view.addSubview(moveDown)
+        self.view.addSubview(moveLeft)
+        self.view.addSubview(moveRight)
+    }
+    
+    private func createCircleButton() {
+        let randX = CGFloat.random(in: 0...self.view.frame.size.width)
+        let randY = CGFloat.random(in: 0...self.view.frame.size.height)
+        
+        if canCreateView(x: randX, y: randY) {
+            myButton.frame = CGRect(x: randX, y: randY, width: self.side, height: self.side)
+            myButton.backgroundColor = randomColor()
+            myButton.layer.cornerRadius = myButton.frame.width/2
+            myButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        } else {
+            self.createCircleButton()
+        }
+        self.view.addSubview(myButton)
+    }
+    private func createView(figure: Figure) {
+        
+        switch figure {
+        case .rectangle:
+            if canCreateView() {
+                addView(figure: figure)
+                self.x += self.side
+                self.createView(figure: figure)
+            } else if self.x + self.side > self.view.frame.size.width {
+                self.x = 0
+                self.y += self.side
+                if canCreateView() {
+                    self.createView(figure: figure)
+                }
+            }
+        case .circle:
+            addView(figure: figure)
+        }
+    }
+    
+    private func canCreateView() -> Bool {
+        if self.x + self.side > self.view.frame.size.width {return false}
+        if self.y + self.side > self.view.frame.size.height {return false}
+        
+        return true
+    }
+    
+    private func canCreateView(x: CGFloat, y: CGFloat) -> Bool {
+        if x + self.side > self.view.frame.size.width {return false}
+        if y + self.side > self.view.frame.size.height {return false}
+        
+        return true
+    }
+    
+    private func addView(figure: Figure) {
+        let newView = UIView()
+        let x = self.view.frame.size.width/2 - self.side/2
+        let y = self.view.frame.size.height/2 - self.side/2
+        
+        switch figure {
+        case .rectangle:
+            newView.frame = CGRect(x: self.x, y: self.y, width: self.side, height: self.side)
+            newView.backgroundColor = randomColor()
+            self.view.addSubview(newView)
+        case .circle:
+            self.MyCircle.frame = CGRect(x: x, y: y, width: self.side, height: self.side)
+            self.MyCircle.backgroundColor = randomColor()
+            self.MyCircle.layer.cornerRadius = MyCircle.frame.width/2
+            self.view.addSubview(MyCircle)
         }
         
-        myButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        myButton.backgroundColor = .magenta
-        myButton.layer.cornerRadius = myButton.frame.width/2
-     }
+    }
+    
+    private func randomColor() -> UIColor {
+        let red:CGFloat = CGFloat(drand48())
+        let green:CGFloat = CGFloat(drand48())
+        let blue:CGFloat = CGFloat(drand48())
+        
+        return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
+    }
 }
