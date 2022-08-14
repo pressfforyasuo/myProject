@@ -28,6 +28,7 @@ class CalculatorVC: UIViewController {
                 result.text = "\(valueArray[0])"
             } else {
                 result.text = "\(newValue)"
+                print(newValue + 999.0)
             }
             
             stillTyping = false
@@ -68,7 +69,9 @@ class CalculatorVC: UIViewController {
         if stillTyping {
             secondOperand = currentInput
         }
+        
         pointIsStay = false
+        
         switch operationSign {
         case "+":
             operateWithTwoOperands {$0 + $1}
@@ -107,11 +110,17 @@ class CalculatorVC: UIViewController {
     }
     
     @IBAction func point(_ sender: UIButton) {
+        print(stillTyping)
+        print(pointIsStay)
         if stillTyping && !pointIsStay {
             result.text = result.text! + "."
             pointIsStay = true
+            print(1)
         } else if !stillTyping && !pointIsStay {
             result.text = "0."
+            pointIsStay = true
+            stillTyping = true
+            print(2)
         }
     }
     //MARK: - flow funcs

@@ -313,9 +313,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rf1-VU-PDQ">
                                         <rect key="frame" x="197.66666666666666" y="380.66666666666663" width="68.666666666666657" height="70.333333333333314"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title=","/>
+                                        <buttonConfiguration key="configuration" style="gray" title="."/>
                                         <connections>
-                                            <action selector="numberPressedWithSender:" destination="h65-eJ-fSh" eventType="touchUpInside" id="tZa-bZ-yG0"/>
                                             <action selector="point:" destination="h65-eJ-fSh" eventType="touchUpInside" id="Yya-95-fP9"/>
                                         </connections>
                                     </button>
