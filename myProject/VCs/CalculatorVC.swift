@@ -13,6 +13,7 @@ class CalculatorVC: UIViewController {
     //MARK: - let/var
     private var operationSign: String = ""
     private var stillTyping = false
+    private var pointIsStay = false
     private var firstOperand: Double = 0
     private var secondOperand: Double = 0
     private var currentInput: Double {
@@ -20,7 +21,15 @@ class CalculatorVC: UIViewController {
             return Double(result.text!)!
         }
         set {
-            result.text = "\(newValue)"
+            let value = "\(newValue)"
+            let valueArray = value.components(separatedBy: ".")
+            
+            if valueArray[0] == "0" {
+                result.text = "\(valueArray[0])"
+            } else {
+                result.text = "\(newValue)"
+            }
+            
             stillTyping = false
         }
     }
@@ -52,13 +61,14 @@ class CalculatorVC: UIViewController {
         }
         firstOperand = currentInput
         stillTyping = false
+        pointIsStay = false
     }
     
     @IBAction func equivalentButton(sender: UIButton) {
         if stillTyping {
             secondOperand = currentInput
         }
-        
+        pointIsStay = false
         switch operationSign {
         case "+":
             operateWithTwoOperands {$0 + $1}
@@ -69,6 +79,39 @@ class CalculatorVC: UIViewController {
         case "/":
             operateWithTwoOperands {$0 / $1}
         default : break
+        }
+    }
+    
+    @IBAction func plusMinus(_ sender: UIButton) {
+        currentInput = -currentInput
+    }
+    
+    @IBAction func clear(_ sender: UIButton) {
+        firstOperand = 0
+        secondOperand = 0
+        currentInput = 0
+        operationSign = ""
+        result.text = "0"
+        stillTyping = false
+        pointIsStay = false
+    }
+    
+    @IBAction func percent(_ sender: UIButton) {
+        if firstOperand == 0 {
+            currentInput = currentInput / 100
+        } else {
+            secondOperand = firstOperand * currentInput / 100
+        }
+        stillTyping = false
+        pointIsStay = false
+    }
+    
+    @IBAction func point(_ sender: UIButton) {
+        if stillTyping && !pointIsStay {
+            result.text = result.text! + "."
+            pointIsStay = true
+        } else if !stillTyping && !pointIsStay {
+            result.text = "0."
         }
     }
     //MARK: - flow funcs
