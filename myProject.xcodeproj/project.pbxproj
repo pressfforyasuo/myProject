@@ -16,6 +16,7 @@
 		969B0DAE28A7B1F9008467EA /* CatGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B0DAD28A7B1F9008467EA /* CatGameVC.swift */; };
 		969B0DB128A7B41D008467EA /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B0DB028A7B41D008467EA /* Function.swift */; };
 		969B0DB328A7BE5A008467EA /* RectangleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B0DB228A7BE5A008467EA /* RectangleVC.swift */; };
+		969B0DB728A80F9C008467EA /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969B0DB628A80F9C008467EA /* CalculatorVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		969B0DAD28A7B1F9008467EA /* CatGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatGameVC.swift; sourceTree = "<group>"; };
 		969B0DB028A7B41D008467EA /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		969B0DB228A7BE5A008467EA /* RectangleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleVC.swift; sourceTree = "<group>"; };
+		969B0DB628A80F9C008467EA /* CalculatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				969B0DA928A7AB6F008467EA /* CircleMoveVC.swift */,
 				969B0DAD28A7B1F9008467EA /* CatGameVC.swift */,
 				969B0DB228A7BE5A008467EA /* RectangleVC.swift */,
+				969B0DB628A80F9C008467EA /* CalculatorVC.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				969B0DB328A7BE5A008467EA /* RectangleVC.swift in Sources */,
 				969B0DB128A7B41D008467EA /* Function.swift in Sources */,
 				969B0D9328A2B9CB008467EA /* AppDelegate.swift in Sources */,
+				969B0DB728A80F9C008467EA /* CalculatorVC.swift in Sources */,
 				969B0DAA28A7AB6F008467EA /* CircleMoveVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
