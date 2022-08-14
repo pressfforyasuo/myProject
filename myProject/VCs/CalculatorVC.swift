@@ -24,7 +24,7 @@ class CalculatorVC: UIViewController {
             let value = "\(newValue)"
             let valueArray = value.components(separatedBy: ".")
             
-            if valueArray[0] == "0" {
+            if valueArray[1] == "0" {
                 result.text = "\(valueArray[0])"
             } else {
                 result.text = "\(newValue)"
